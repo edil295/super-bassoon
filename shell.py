@@ -22,3 +22,5 @@ men2.cour.set([st1, st2], through_defaults={'name': 'Python-21', 'language': lan
 Course.objects.create(name='UXUI design – 43', language=lan3,
                       date_started='2022-08-22',
                       mentor=men1, student=st3)
+
+

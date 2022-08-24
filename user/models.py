@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 
 class Language(models.Model):
@@ -24,7 +25,7 @@ class AbstractPerson(models.Model):
     def save(self, *args, **kwargs):
         if self.phone_number[0] == '0':
             s = self.phone_number
-            s = s.replace(s[0], '')
+            s = s[1:]
             self.phone_number = f'+996{s}'
         else:
             self.phone_number = self.phone_number
@@ -57,6 +58,10 @@ class Course(models.Model):
     date_started = models.DateField()
     mentor = models.ForeignKey(Mentor, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+
+    def get_end_date(self):
+        data = datetime.timedelta(days=self.language.month_to_learn * 30)
+        return self.date_started + data
 
     def __str__(self):
         return self.name
